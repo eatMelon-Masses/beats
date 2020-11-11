@@ -31,6 +31,7 @@ type biFlow struct {
 	dir        flowDirection
 	stats      [2]*flowStats
 	prev, next *biFlow
+	data       []byte
 }
 
 type Flow struct {

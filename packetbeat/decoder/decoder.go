@@ -215,7 +215,7 @@ func (d *Decoder) OnPacket(data []byte, ci *gopacket.CaptureInfo) {
 	if d.flowID != nil {
 		debugf("flow id flags: %v", d.flowID.Flags())
 	}
-
+	d.flows.SetData(d.flowID, data)
 	if d.flowID != nil && d.flowID.Flags() != 0 {
 		flow := d.flows.Get(d.flowID)
 		d.statPackets.Add(flow, 1)

@@ -86,6 +86,7 @@ func (t *flowTable) get(id *FlowID, counter *counterReg) Flow {
 		debugf("create new flow")
 
 		bf = newBiFlow(id.rawFlowID.clone(), ts, id.dir)
+		bf.data = id.data
 		t.table[string(bf.id.flowID)] = bf
 		t.flows.append(bf)
 	} else if bf.dir != id.dir {

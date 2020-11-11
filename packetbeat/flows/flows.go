@@ -99,6 +99,9 @@ func (f *Flows) Get(id *FlowID) *Flow {
 	}
 	return &id.flow
 }
+func (f *Flows) SetData(id *FlowID, data []byte) {
+	id.data = data
+}
 
 func (f *Flows) Start() {
 	f.worker.Start()

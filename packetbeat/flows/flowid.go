@@ -25,6 +25,7 @@ import (
 )
 
 type FlowID struct {
+	data []byte
 	rawFlowID
 	flow Flow // remember associated flow for faster lookup
 }
