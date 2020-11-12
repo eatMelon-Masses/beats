@@ -21,6 +21,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"net"
 	"time"
 
@@ -200,7 +201,7 @@ func (fw *flowsProcessor) report(
 ) {
 	event := createEvent(fw.watcher, ts, flow, isOver, intNames, uintNames, floatNames)
 	//上报时间
-	debugf("add event: %v", event)
+	//debugf("add event: %v", event)
 	fw.spool.publish(event)
 }
 
@@ -237,11 +238,9 @@ func createEvent(
 	var communityID flowhash.Flow
 	var proto applayer.Transport
 
-	//network["data"] = string(f.data)
 	network["data"] = hex.EncodeToString(f.data)
 	network["data_decode"] = string(f.data)
-	//fmt.Println(network["data"])
-	//fmt.Println()
+	fmt.Println("设置元数据到event", string(f.data))
 
 	// add ethernet layer meta data
 	if src, dst, ok := f.id.EthAddr(); ok {

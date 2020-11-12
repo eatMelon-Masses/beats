@@ -86,13 +86,13 @@ func (t *flowTable) get(id *FlowID, counter *counterReg) Flow {
 		debugf("create new flow")
 
 		bf = newBiFlow(id.rawFlowID.clone(), ts, id.dir)
-		bf.data = id.data
 		t.table[string(bf.id.flowID)] = bf
 		t.flows.append(bf)
 	} else if bf.dir != id.dir {
 		dir = flowDirReversed
 	}
-
+	//将元数据从biflow设置到table里
+	//bf.data = id.data
 	bf.ts = ts
 	stats := bf.stats[dir]
 	if stats == nil {
@@ -100,6 +100,23 @@ func (t *flowTable) get(id *FlowID, counter *counterReg) Flow {
 		bf.stats[dir] = stats
 	}
 	return Flow{stats}
+}
+
+//自定义
+func (t *flowMetaTable) setFlowMetaTable(id *FlowID) {
+
+	sub := t.table[id.flowIDMeta]
+	sub.setFlowData(id)
+
+}
+
+func (t *flowTable) setFlowData(id *FlowID) {
+	t.mutex.Lock()
+	defer t.mutex.Unlock()
+	bf := t.table[string(id.flowID)]
+	bf.data = id.data
+	//将元数据从biflow设置到table里
+	//fmt.Println("设置元数据到table，",id.data)
 }
 
 func (t *flowTable) remove(f *biFlow) {

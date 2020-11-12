@@ -97,6 +97,9 @@ func (f *Flows) Get(id *FlowID) *Flow {
 		debugf("lookup flow: %v => %v", id.flowIDMeta, id.flowID)
 		id.flow = f.table.get(id, f.counterReg)
 	}
+
+	f.table.setFlowMetaTable(id)
+
 	return &id.flow
 }
 func (f *Flows) SetData(id *FlowID, data []byte) {

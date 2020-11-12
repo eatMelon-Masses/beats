@@ -191,11 +191,12 @@ func (d *Decoder) OnPacket(data []byte, ci *gopacket.CaptureInfo) {
 		nextType := current.NextLayerType()
 		data = current.LayerPayload()
 
-		processed, err = d.process(&packet, currentType)
+		processed, err = d.process(data, &packet, currentType)
 		if err != nil {
 			logp.Info("Error processing packet: %v", err)
 			break
 		}
+
 		if processed {
 			break
 		}
@@ -215,15 +216,16 @@ func (d *Decoder) OnPacket(data []byte, ci *gopacket.CaptureInfo) {
 	if d.flowID != nil {
 		debugf("flow id flags: %v", d.flowID.Flags())
 	}
-	d.flows.SetData(d.flowID, data)
 	if d.flowID != nil && d.flowID.Flags() != 0 {
 		flow := d.flows.Get(d.flowID)
+
 		d.statPackets.Add(flow, 1)
 		d.statBytes.Add(flow, uint64(ci.Length))
 	}
 }
 
 func (d *Decoder) process(
+	data []byte,
 	packet *protos.Packet,
 	layerType gopacket.LayerType,
 ) (bool, error) {
@@ -281,10 +283,13 @@ func (d *Decoder) process(
 	case layers.LayerTypeUDP:
 		debugf("UDP packet")
 		d.onUDP(packet)
+		d.flows.SetData(d.flowID, data)
 		return true, nil
 
 	case layers.LayerTypeTCP:
 		debugf("TCP packet")
+		//fmt.Println("16进制:%s",hex.EncodeToString(data))
+		d.flows.SetData(d.flowID, data)
 		d.onTCP(packet)
 		return true, nil
 	}
