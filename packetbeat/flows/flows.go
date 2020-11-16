@@ -98,12 +98,12 @@ func (f *Flows) Get(id *FlowID) *Flow {
 		id.flow = f.table.get(id, f.counterReg)
 	}
 
-	f.table.setFlowMetaTable(id)
+	//f.table.SetFlowMetaTable(id)
 
 	return &id.flow
 }
 func (f *Flows) SetData(id *FlowID, data []byte) {
-	id.data = data
+	id.Data = data
 }
 
 func (f *Flows) Start() {

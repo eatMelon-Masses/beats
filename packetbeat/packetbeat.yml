@@ -33,7 +33,7 @@ packetbeat.protocols:
 # ======================= Elasticsearch template setting =======================
 #setup.template.name: "packetbeat"
 index.number_of_shards: 1
-setup.template.fields: "/User1s/zhouye/Documents/project/person/github.com/elastic/beats/packetbeat/fields.yml"
+setup.template.fields: "/Users/zhouye/Documents/project/person/github.com/elastic/beats/packetbeat/fields.yml"
 setup.template.overwrite: false
 setup.template.settings:
   index.number_of_shards: 1

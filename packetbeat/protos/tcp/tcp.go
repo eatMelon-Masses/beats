@@ -141,6 +141,7 @@ func (stream *TCPStream) addPacket(pkt *protos.Packet, tcphdr *layers.TCP) {
 	}
 
 	if len(pkt.Payload) > 0 {
+		//应用层流量解析
 		conn.data = mod.Parse(pkt, &conn.tcptuple, stream.dir, conn.data)
 	}
 

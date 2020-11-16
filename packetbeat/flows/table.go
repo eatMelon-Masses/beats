@@ -99,22 +99,14 @@ func (t *flowTable) get(id *FlowID, counter *counterReg) Flow {
 		stats = newFlowStats(counter)
 		bf.stats[dir] = stats
 	}
+	t.setFlowData(id)
 	return Flow{stats}
 }
 
-//自定义
-func (t *flowMetaTable) setFlowMetaTable(id *FlowID) {
-
-	sub := t.table[id.flowIDMeta]
-	sub.setFlowData(id)
-
-}
-
 func (t *flowTable) setFlowData(id *FlowID) {
-	t.mutex.Lock()
-	defer t.mutex.Unlock()
 	bf := t.table[string(id.flowID)]
-	bf.data = id.data
+	bf.data = append(bf.data, id.Data...)
+	//bf.data = id.Data
 	//将元数据从biflow设置到table里
 	//fmt.Println("设置元数据到table，",id.data)
 }

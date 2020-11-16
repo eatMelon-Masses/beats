@@ -283,13 +283,17 @@ func (d *Decoder) process(
 	case layers.LayerTypeUDP:
 		debugf("UDP packet")
 		d.onUDP(packet)
-		d.flows.SetData(d.flowID, data)
+		if len(data) != 0 {
+			d.flows.SetData(d.flowID, data)
+		}
 		return true, nil
 
 	case layers.LayerTypeTCP:
 		debugf("TCP packet")
 		//fmt.Println("16进制:%s",hex.EncodeToString(data))
-		d.flows.SetData(d.flowID, data)
+		if len(data) != 0 {
+			d.flows.SetData(d.flowID, data)
+		}
 		d.onTCP(packet)
 		return true, nil
 	}
