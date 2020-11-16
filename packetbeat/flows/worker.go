@@ -21,7 +21,6 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"errors"
-	"fmt"
 	"net"
 	"time"
 
@@ -240,7 +239,7 @@ func createEvent(
 
 	network["data"] = hex.EncodeToString(f.data)
 	network["data_decode"] = string(f.data)
-	fmt.Println("设置元数据到event", string(f.data))
+	//fmt.Println("设置元数据到event", string(f.data))
 	f.data = []byte{}
 	// add ethernet layer meta data
 	if src, dst, ok := f.id.EthAddr(); ok {
