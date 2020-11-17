@@ -19,7 +19,6 @@ package flows
 
 import (
 	"encoding/binary"
-	"encoding/hex"
 	"errors"
 	"net"
 	"time"
@@ -237,7 +236,7 @@ func createEvent(
 	var communityID flowhash.Flow
 	var proto applayer.Transport
 
-	network["data"] = hex.EncodeToString(f.data)
+	//network["data"] = hex.EncodeToString(f.data)
 	network["data_decode"] = string(f.data)
 	//fmt.Println("设置元数据到event", string(f.data))
 	f.data = []byte{}
