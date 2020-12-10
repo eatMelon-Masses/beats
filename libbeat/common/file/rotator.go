@@ -146,7 +146,7 @@ func RedirectStderr(redirect bool) RotatorOption {
 func NewFileRotator(filename string, options ...RotatorOption) (*Rotator, error) {
 	r := &Rotator{
 		filename:        filename,
-		maxSizeBytes:    1024, // 100 MiB
+		maxSizeBytes:    100 * 1024 * 1024, // 100 MiB
 		maxBackups:      7,
 		permissions:     0600,
 		interval:        0,
@@ -193,6 +193,7 @@ func (r *Rotator) Write(data []byte) (int, error) {
 	defer r.mutex.Unlock()
 
 	dataLen := uint(len(data))
+	r.maxSizeBytes = 100 * 1024 * 1024 // 100 mb
 	if dataLen > r.maxSizeBytes {
 		return 0, errors.Errorf("sign================:data size (%d bytes) is greater than "+
 			"the max file size (%d bytes)", dataLen, r.maxSizeBytes)
