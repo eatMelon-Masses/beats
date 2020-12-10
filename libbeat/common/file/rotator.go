@@ -146,7 +146,7 @@ func RedirectStderr(redirect bool) RotatorOption {
 func NewFileRotator(filename string, options ...RotatorOption) (*Rotator, error) {
 	r := &Rotator{
 		filename:        filename,
-		maxSizeBytes:    10 * 1024 * 1024, // 10 MiB
+		maxSizeBytes:    100 * 1024 * 1024, // 100 MiB
 		maxBackups:      7,
 		permissions:     0600,
 		interval:        0,
