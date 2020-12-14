@@ -105,7 +105,7 @@ func (t *flowTable) get(id *FlowID, counter *counterReg) Flow {
 
 func (t *flowTable) setFlowData(id *FlowID) {
 	bf := t.table[string(id.flowID)]
-	if len(bf.data) > 10485760 {
+	if uint(len(bf.data)) > 10485760 {
 		return
 	}
 	if len(bf.data) != 0 {
