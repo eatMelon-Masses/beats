@@ -18,6 +18,7 @@
 package flows
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -106,6 +107,7 @@ func (t *flowTable) get(id *FlowID, counter *counterReg) Flow {
 func (t *flowTable) setFlowData(id *FlowID) {
 	bf := t.table[string(id.flowID)]
 	if uint(len(bf.data)) > 10485760 {
+		fmt.Println("flowid = %s,size=%s", bf.id, uint(len(bf.data)))
 		return
 	}
 	if len(bf.data) != 0 {

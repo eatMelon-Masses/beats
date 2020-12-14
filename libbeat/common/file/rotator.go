@@ -196,7 +196,7 @@ func (r *Rotator) Write(data []byte) (int, error) {
 	r.maxSizeBytes = 11 * 1024 * 1024 // 11 mb
 	if dataLen > r.maxSizeBytes {
 		return 0, errors.Errorf("sign================:data size (%d bytes) is greater than "+
-			"the max file size (%d bytes)", dataLen, r.maxSizeBytes)
+			"the max file size (%d bytes),flowid=%s", dataLen, r.maxSizeBytes)
 	}
 
 	if r.file == nil {
