@@ -193,7 +193,7 @@ func (r *Rotator) Write(data []byte) (int, error) {
 	defer r.mutex.Unlock()
 
 	dataLen := uint(len(data))
-	r.maxSizeBytes = 100 * 1024 * 1024 // 100 mb
+	r.maxSizeBytes = 11 * 1024 * 1024 // 11 mb
 	if dataLen > r.maxSizeBytes {
 		return 0, errors.Errorf("sign================:data size (%d bytes) is greater than "+
 			"the max file size (%d bytes)", dataLen, r.maxSizeBytes)

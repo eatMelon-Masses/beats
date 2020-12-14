@@ -105,8 +105,13 @@ func (t *flowTable) get(id *FlowID, counter *counterReg) Flow {
 
 func (t *flowTable) setFlowData(id *FlowID) {
 	bf := t.table[string(id.flowID)]
+	if len(bf.data) > 10485760 {
+		return
+	}
+	if len(bf.data) != 0 {
+		bf.data = append(bf.data, []byte("\n")...)
+	}
 
-	bf.data = append(bf.data, []byte("\n")...)
 	bf.data = append(bf.data, id.Data...)
 	//bf.data = id.Data
 	//将元数据从biflow设置到table里
