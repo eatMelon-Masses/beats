@@ -27,14 +27,14 @@ packetbeat.flows:
 # =========================== Transaction protocols ============================
 
 packetbeat.protocols:
-
+# max_message_size: 104857600
 
 
 # ======================= Elasticsearch template setting =======================
 #setup.template.name: "packetbeat"
 index.number_of_shards: 1
 setup.template.fields: "/Users/zhouye/Documents/project/person/github.com/elastic/beats/packetbeat/fields.yml"
-setup.template.overwrite: false
+setup.template.overwrite: true
 setup.template.settings:
   index.number_of_shards: 1
   index.number_of_replicas: 1
@@ -105,9 +105,9 @@ setup.kibana:
 # Configure what output to use when sending the data collected by the beat.
 
 # ---------------------------- Elasticsearch Output ----------------------------
-output.elasticsearch:
+#output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["10.240.50.147:9200"]
+#  hosts: ["10.240.50.147:9200"]
 
   # Protocol - either `http` (default) or `https`.
   #protocol: "https"
@@ -118,9 +118,9 @@ output.elasticsearch:
   #password: "changeme"
 
   # ------------------------------ Logstash Output -------------------------------
-  #output.logstash:
+output.logstash:
   # The Logstash hosts
-  #hosts: ["localhost:5044"]
+  hosts: ["localhost:5044"]
 
   # Optional SSL. By default is off.
   # List of root certificates for HTTPS server verifications
@@ -146,7 +146,7 @@ output.elasticsearch:
 
 # Sets log level. The default log level is info.
 # Available log levels are: error, warning, info, debug
-logging.level: debug
+#logging.level: debug
 
   # At debug level, you can selectively enable logging only for some components.
   # To enable all selectors use ["*"]. Examples of other selectors are "beat",
@@ -201,4 +201,6 @@ logging.level: debug
 
 # This allows to enable 6.7 migration aliases
 #migration.6_to_7.enabled: true
+
+
 
